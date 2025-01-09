@@ -1,12 +1,19 @@
+require("dotenv").config();
 const express = require("express");
+const connectDb = require("./db");
 
 const app = express();
-const port = 3000;
+
+connectDb();
+
+app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("API is running.....");
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+const PORT =
+  process.env.PORT ||
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
