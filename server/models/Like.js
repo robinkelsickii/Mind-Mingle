@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Schema for keeping track of likes
 const LikeSchema = new mongoose.Schema(
   {
     user: {
