@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// ViolationSchema defines the structure of the violation documents in the MongoDB database.
 const ViolationSchema = new mongoose.Schema({
   reportedBy: {
     type: mongoose.Schema.Types.ObjectId,
@@ -14,6 +15,7 @@ const ViolationSchema = new mongoose.Schema({
   message: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Message",
+    default: null,
   },
   reason: {
     type: String,
@@ -37,6 +39,7 @@ const ViolationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  // Reason for resolving the violation, e.g., "False Report", "Action Taken", "No Action Needed"
   resolvedReason: {
     type: String,
   },
@@ -44,10 +47,16 @@ const ViolationSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  updateAt: {
+  updatedAt: {
     type: Date,
-    default: Date.now,
   },
+});
+
+ViolationSchema.pre("save", function (next) {
+  if (this.isModified() || this.isNew) {
+    this.updatedAt = Date.now();
+  }
+  next();
 });
 
 module.exports = mongoose.model("Violation", ViolationSchema);
