@@ -11,6 +11,10 @@ const ViolationSchema = new mongoose.Schema({
     ref: "Post",
     default: null,
   },
+  message: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Message",
+  },
   reason: {
     type: String,
     enum: [
