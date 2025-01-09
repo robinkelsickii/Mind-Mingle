@@ -1,11 +1,14 @@
 const mongoose = require("mongoose");
 
-// Schema for keeping track of likes
+// Schema for keeping track of likes in the application.
+// This schema is used to store information about likes made by users on posts, comments, or messages.
+// Each like can now be associated with multiple types of content simultaneously.
 const LikeSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     post: {
       type: mongoose.Schema.Types.ObjectId,
@@ -18,10 +21,6 @@ const LikeSchema = new mongoose.Schema(
     message: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Message",
-    },
-    liked: {
-      type: Boolean,
-      default: false,
     },
   },
   { timestamps: true }
